@@ -12,24 +12,33 @@ class Produtos:
             print(f"Produto: {self.nomes[i]}, Preço: {self.precos[i]}")
 
 class Carrinho:
-    lista_produtos = {}
+    lista_produtos = []
+    lista_precos = []
     def __init__(self):
         pass
     
     def adicionar_produto(self,produto,preco):
-        self.lista_produtos['produtos'] = produto
-        self.lista_produtos['precos'] = preco
+        if len(produto) > 0:
+            self.lista_produtos.append(produto)
+        if preco > 0:
+            self.lista_precos.append(preco)
 
     def mostra_total(self):
         total = 0
-        if len(self.lista_produtos['produtos']) > 0 and len(self.lista_produtos['precos']) > 0:
-            for preco in self.lista_produtos['precos']:
+        print(self.lista_produtos)
+        if len(self.lista_precos) > 0:
+            for preco in self.lista_precos:
                 total += preco
         return total
+    
+    def finalizar_compra(self):
+        return True
 
 pessoa1 = Pessoa("Rodrigo")
 produtos = Produtos(["Lápis","Escova","Microfone"],[2.50,10,45])
 print(produtos.produtos_disponiveis())
 carrinho = Carrinho()
-carrinho.adicionar_produto(["Lápis"],[2.50])
+carrinho.adicionar_produto("Lápis",2.50)
+carrinho.adicionar_produto("Escova",10)
 print(carrinho.mostra_total())
+carrinho.finalizar_compra()
