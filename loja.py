@@ -20,6 +20,13 @@ class Carrinho:
                     self.lista_precos_carrinho.append(self.produtos_disponiveis[numero_produto]['preco'])
                     self.lista_produtos_carrinho.append(self.produtos_disponiveis[numero_produto]['nome'])
 
+    def remover_produto(self,numero_produto_usuario):
+        if len(self.lista_produtos_carrinho) > 0 and len(self.lista_precos_carrinho) > 0:
+            for i in range(len(self.lista_produtos_carrinho)):
+                if i == numero_produto_usuario:
+                    self.lista_precos_carrinho.remove(self.lista_precos_carrinho[i])
+                    self.lista_produtos_carrinho.remove(self.lista_produtos_carrinho[i])
+
     def mostra_total(self):
         total = 0
         if len(self.lista_precos_carrinho) > 0:
@@ -31,7 +38,7 @@ class Carrinho:
         if len(self.lista_produtos_carrinho) > 0:
             print("Carrinho:")
             for i in range(len(self.lista_produtos_carrinho)):
-                print(f"{self.lista_produtos_carrinho[i]} - R$ {self.lista_precos_carrinho[i]:.2f}")
+                print(f"{i} - {self.lista_produtos_carrinho[i]} - R$ {self.lista_precos_carrinho[i]:.2f}")
     
     def finalizar_compra(self):
         print("Compra finalizada")
@@ -45,7 +52,7 @@ produtos = Produtos({
 def main():
     carrinho = Carrinho(produtos)
     while True:
-        print("1. Ver produtos\n2. Adicionar produto\n3. Ver total e produtos do carrinho\n4. Finalizar compra\n5. Sair")
+        print("1. Ver produtos\n2. Adicionar produto no carrinho\n3. Remover produto do carrinho\n4. Ver total e produtos do carrinho\n5. Finalizar compra\n6. Sair")
         try:
             escolha = int(input("Digite uma opção: "))
             if escolha == 1:
@@ -53,15 +60,17 @@ def main():
             elif escolha == 2:
                 adicionar_produto_carrinho(carrinho)
             elif escolha == 3:
+                remover_produto_carrinho(carrinho)
+            elif escolha == 4:
                 total = carrinho.mostra_total()
                 carrinho.mostrar_produtos_carrinho()
                 print(f"Total no carrinho: R${total:.2f}")
-            elif escolha == 4:
+            elif escolha == 5:
                 total = carrinho.mostra_total()
                 print(f"Total da compra: R${total:.2f}")
                 carrinho.finalizar_compra()
                 break
-            elif escolha == 5:
+            elif escolha == 6:
                 print("Você saiu do sistema.")
                 break
             else:
@@ -78,5 +87,19 @@ def adicionar_produto_carrinho(carrinho):
             carrinho.adicionar_produto(numero_produto_usuario)
             print("Produto adicionado no carrinho!")
             break
+
+def remover_produto_carrinho(carrinho):
+    while True:
+        numero_produto_usuario = int(input("Digite o número do produto que deseja remover: "))
+        if numero_produto_usuario < 0 or numero_produto_usuario > len(carrinho.lista_produtos_carrinho):
+            print("Você digitou uma opção incorreta!")
+        else:
+            for i in range(len(carrinho.lista_produtos_carrinho)):
+                if i == numero_produto_usuario:
+                    carrinho.remover_produto(numero_produto_usuario)
+                    print("Produto removido no carrinho!")
+                    break
+                else:
+                    print("Esse produto não existe")
 
 main()
