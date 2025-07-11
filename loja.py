@@ -100,6 +100,7 @@ def remover_produto_carrinho(carrinho):
                         return True
                     else:
                         print("Esse produto não existe")
+                        return False
         else:
             print("Carrinho está vazio")
             break
