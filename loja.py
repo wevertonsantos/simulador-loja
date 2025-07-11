@@ -45,18 +45,20 @@ def main():
                 produtos.produtos_disponiveis()
             elif escolha == 2:
                 carrinho = Carrinho(produtos)
-                while True:
-                    numero_produto_usuario = int(input("Digite o número do produto que deseja adicionar: "))
-                    if numero_produto_usuario < 0 or numero_produto_usuario > len(produtos.produtos):
-                        print("Você digitou uma opção incorreta!")
-                    else:
-                        carrinho.adicionar_produto(numero_produto_usuario)
-                        print("Produto adicionado no carrinho!")
-                        break
+                adicionar_produto_carrinho(carrinho)
             elif escolha == 3:
                 carrinho.mostra_total()
         except ValueError:
             print("Você digitou algo errado")
 
+def adicionar_produto_carrinho(carrinho):
+    while True:
+        numero_produto_usuario = int(input("Digite o número do produto que deseja adicionar: "))
+        if numero_produto_usuario < 0 or numero_produto_usuario > len(produtos.produtos):
+            print("Você digitou uma opção incorreta!")
+        else:
+            carrinho.adicionar_produto(numero_produto_usuario)
+            print("Produto adicionado no carrinho!")
+            break
 
 main()
