@@ -22,10 +22,8 @@ class Carrinho:
 
     def remover_produto(self,numero_produto_usuario):
         if len(self.lista_produtos_carrinho) > 0 and len(self.lista_precos_carrinho) > 0:
-            for i in range(len(self.lista_produtos_carrinho)):
-                if i == numero_produto_usuario:
-                    self.lista_precos_carrinho.remove(self.lista_precos_carrinho[i])
-                    self.lista_produtos_carrinho.remove(self.lista_produtos_carrinho[i])
+            self.lista_precos_carrinho.pop(numero_produto_usuario)
+            self.lista_produtos_carrinho.pop(numero_produto_usuario)
 
     def mostra_total(self):
         total = 0
@@ -90,16 +88,20 @@ def adicionar_produto_carrinho(carrinho):
 
 def remover_produto_carrinho(carrinho):
     while True:
-        numero_produto_usuario = int(input("Digite o número do produto que deseja remover: "))
-        if numero_produto_usuario < 0 or numero_produto_usuario > len(carrinho.lista_produtos_carrinho):
-            print("Você digitou uma opção incorreta!")
+        if len(carrinho.lista_produtos_carrinho) > 0:
+            numero_produto_usuario = int(input("Digite o número do produto que deseja remover: "))
+            if numero_produto_usuario < 0 or numero_produto_usuario > len(carrinho.lista_produtos_carrinho):
+                print("Você digitou uma opção incorreta!")
+            else:
+                for i in range(len(carrinho.lista_produtos_carrinho)):
+                    if i == numero_produto_usuario:
+                        carrinho.remover_produto(numero_produto_usuario)
+                        print("Produto removido no carrinho!")
+                        return True
+                    else:
+                        print("Esse produto não existe")
         else:
-            for i in range(len(carrinho.lista_produtos_carrinho)):
-                if i == numero_produto_usuario:
-                    carrinho.remover_produto(numero_produto_usuario)
-                    print("Produto removido no carrinho!")
-                    break
-                else:
-                    print("Esse produto não existe")
+            print("Carrinho está vazio")
+            break
 
 main()
