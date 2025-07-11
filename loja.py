@@ -32,7 +32,7 @@ class Carrinho:
         return total
     
     def finalizar_compra(self):
-        return True
+        print("Compra finalizada")
 
 pessoa1 = Pessoa("Rodrigo")
 produtos = Produtos(["Lápis","Escova","Microfone"],[2.50,10,45])
@@ -40,5 +40,5 @@ print(produtos.produtos_disponiveis())
 carrinho = Carrinho()
 carrinho.adicionar_produto("Lápis",2.50)
 carrinho.adicionar_produto("Escova",10)
-print(carrinho.mostra_total())
-carrinho.finalizar_compra()
+print(f"Total no carrinho: {carrinho.mostra_total()}")
+print(carrinho.finalizar_compra())
