@@ -8,9 +8,9 @@ class Produtos:
                 print(f"{numero_produto} - {self.produtos[numero_produto]['nome']}, preço: {self.produtos[numero_produto]['preco']}")
 
 class Carrinho:
-    lista_precos = []
     def __init__(self,produtos):
         self.produtos_disponiveis = produtos.produtos
+        self.lista_precos = []
 
     def adicionar_produto(self,numero_produto_usuario):
         if numero_produto_usuario > 0:
@@ -33,10 +33,9 @@ produtos = Produtos({
     2:{'nome':'Escova','preco':10},
     3:{'nome':'Microfone','preco':45}
 })
-#print(f"Total no carrinho: {carrinho.mostra_total()}")
-#print(carrinho.finalizar_compra())
 
 def main():
+    carrinho = Carrinho(produtos)
     while True:
         print("1. Ver produtos\n2. Adicionar produto\n3. Ver total do carrinho\n4. Finalizar compra\n5. Sair")
         try:
@@ -44,10 +43,20 @@ def main():
             if escolha == 1:
                 produtos.produtos_disponiveis()
             elif escolha == 2:
-                carrinho = Carrinho(produtos)
                 adicionar_produto_carrinho(carrinho)
             elif escolha == 3:
-                carrinho.mostra_total()
+                total = carrinho.mostra_total()
+                print(f"Total no carrinho: R${total:.2f}")
+            elif escolha == 4:
+                total = carrinho.mostra_total()
+                print(f"Total da compra: R${total:.2f}")
+                carrinho.finalizar_compra()
+                break
+            elif escolha == 5:
+                print("Você saiu do sistema.")
+                break
+            else:
+                print("Opção inválida")
         except ValueError:
             print("Você digitou algo errado")
 
