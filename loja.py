@@ -7,13 +7,16 @@ class Produtos:
             for numero_produto in self.produtos:
                 print(f"{numero_produto} - {self.produtos[numero_produto]['nome']}, preço: {self.produtos[numero_produto]['preco']}")
 
-class Carrinho(Produtos):
-    def __init__(self):
-        pass
-    
-    def adicionar_produto(self,numero_produto):
-        if numero_produto > 0:
-            self.lista_produtos.append(numero_produto)
+class Carrinho:
+    lista_precos = []
+    def __init__(self,produtos):
+        self.produtos_disponiveis = produtos.produtos
+
+    def adicionar_produto(self,numero_produto_usuario):
+        if numero_produto_usuario > 0:
+            for numero_produto in self.produtos_disponiveis:
+                if numero_produto == numero_produto_usuario:
+                    self.lista_precos.append(self.produtos_disponiveis[numero_produto]['preco'])
 
     def mostra_total(self):
         total = 0
@@ -30,12 +33,8 @@ produtos = Produtos({
     2:{'nome':'Escova','preco':10},
     3:{'nome':'Microfone','preco':45}
 })
-'''
-carrinho = Carrinho()
-carrinho.adicionar_produto(1)
-print(f"Total no carrinho: {carrinho.mostra_total()}")
-print(carrinho.finalizar_compra())
-'''
+#print(f"Total no carrinho: {carrinho.mostra_total()}")
+#print(carrinho.finalizar_compra())
 
 def main():
     while True:
@@ -45,8 +44,17 @@ def main():
             if escolha == 1:
                 produtos.produtos_disponiveis()
             elif escolha == 2:
-                numero_produto = int(input("Digite o número do produto? "))
-                #carrinho.adicionar_produto(numero_produto)
+                carrinho = Carrinho(produtos)
+                while True:
+                    numero_produto_usuario = int(input("Digite o número do produto que deseja adicionar: "))
+                    if numero_produto_usuario < 0 or numero_produto_usuario > len(produtos.produtos):
+                        print("Você digitou uma opção incorreta!")
+                    else:
+                        carrinho.adicionar_produto(numero_produto_usuario)
+                        print("Produto adicionado no carrinho!")
+                        break
+            elif escolha == 3:
+                carrinho.mostra_total()
         except ValueError:
             print("Você digitou algo errado")
 
