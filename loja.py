@@ -10,20 +10,28 @@ class Produtos:
 class Carrinho:
     def __init__(self,produtos):
         self.produtos_disponiveis = produtos.produtos
-        self.lista_precos = []
+        self.lista_precos_carrinho = []
+        self.lista_produtos_carrinho = []
 
     def adicionar_produto(self,numero_produto_usuario):
         if numero_produto_usuario > 0:
             for numero_produto in self.produtos_disponiveis:
                 if numero_produto == numero_produto_usuario:
-                    self.lista_precos.append(self.produtos_disponiveis[numero_produto]['preco'])
+                    self.lista_precos_carrinho.append(self.produtos_disponiveis[numero_produto]['preco'])
+                    self.lista_produtos_carrinho.append(self.produtos_disponiveis[numero_produto]['nome'])
 
     def mostra_total(self):
         total = 0
-        if len(self.lista_precos) > 0:
-            for preco in self.lista_precos:
+        if len(self.lista_precos_carrinho) > 0:
+            for preco in self.lista_precos_carrinho:
                 total += preco
         return total
+    
+    def mostrar_produtos_carrinho(self):
+        if len(self.lista_produtos_carrinho) > 0:
+            print("Carrinho:")
+            for i in range(len(self.lista_produtos_carrinho)):
+                print(f"{self.lista_produtos_carrinho[i]} - R$ {self.lista_precos_carrinho[i]:.2f}")
     
     def finalizar_compra(self):
         print("Compra finalizada")
@@ -37,7 +45,7 @@ produtos = Produtos({
 def main():
     carrinho = Carrinho(produtos)
     while True:
-        print("1. Ver produtos\n2. Adicionar produto\n3. Ver total do carrinho\n4. Finalizar compra\n5. Sair")
+        print("1. Ver produtos\n2. Adicionar produto\n3. Ver total e produtos do carrinho\n4. Finalizar compra\n5. Sair")
         try:
             escolha = int(input("Digite uma opção: "))
             if escolha == 1:
@@ -46,6 +54,7 @@ def main():
                 adicionar_produto_carrinho(carrinho)
             elif escolha == 3:
                 total = carrinho.mostra_total()
+                carrinho.mostrar_produtos_carrinho()
                 print(f"Total no carrinho: R${total:.2f}")
             elif escolha == 4:
                 total = carrinho.mostra_total()
