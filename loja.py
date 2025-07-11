@@ -3,9 +3,9 @@ class Produtos:
         self.produtos = produtos
 
     def produtos_disponiveis(self):
-        for numero_produto in produtos:
-            print(produtos[numero_produto]['nome'])
-            print(produtos[numero_produto]['preco'])
+        if len(self.produtos) > 0:
+            for numero_produto in self.produtos:
+                print(f"{numero_produto} - {self.produtos[numero_produto]['nome']}, preço: {self.produtos[numero_produto]['preco']}")
 
 class Carrinho(Produtos):
     def __init__(self):
@@ -30,10 +30,12 @@ produtos = Produtos({
     2:{'nome':'Escova','preco':10},
     3:{'nome':'Microfone','preco':45}
 })
+'''
 carrinho = Carrinho()
 carrinho.adicionar_produto(1)
 print(f"Total no carrinho: {carrinho.mostra_total()}")
 print(carrinho.finalizar_compra())
+'''
 
 def main():
     while True:
@@ -44,7 +46,7 @@ def main():
                 produtos.produtos_disponiveis()
             elif escolha == 2:
                 numero_produto = int(input("Digite o número do produto? "))
-                carrinho.adicionar_produto(numero_produto)
+                #carrinho.adicionar_produto(numero_produto)
         except ValueError:
             print("Você digitou algo errado")
 
